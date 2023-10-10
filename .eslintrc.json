@@ -5,6 +5,7 @@
     "es2021": true
   },
   "extends": [
+    "next/core-web-vitals",
     "prettier",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
