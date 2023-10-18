@@ -10,6 +10,7 @@ import {
 import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import UserAccountNav from './UserAccountNav'
+import MobileNav from './MobileNav'
 
 const NavBar = () => {
   const { getUser } = getKindeServerSession()
@@ -23,7 +24,7 @@ const NavBar = () => {
             <span>DropDoc.</span>
           </Link>
 
-          {/* todo: add mobile NavBar*/}
+          <MobileNav isAuth={!!user} />
 
           <div className="hidden items-center space-x-4 sm:flex">
             {!user ? (
