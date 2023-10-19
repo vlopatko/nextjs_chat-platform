@@ -30,7 +30,7 @@ const Messages = ({ fileId }: MessagesProps) => {
 
   const loadingMessage = {
     createdAt: new Date().toISOString(),
-    id: 'loading-mwssage',
+    id: 'loading-message',
     isUserMessage: false,
     text: (
       <span className="flex h-full items-center justify-center">
@@ -58,7 +58,7 @@ const Messages = ({ fileId }: MessagesProps) => {
   }, [entry, fetchNextPage])
 
   return (
-    <div className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex max-h-[calc(100vh-10.5rem)] flex-1 flex-col-reverse gap-4 overflow-y-auto border-zinc-200 p-3">
+    <div className="scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch flex max-h-[calc(100vh-3.5rem-7rem)] flex-1 flex-col-reverse gap-4 overflow-y-auto border-zinc-200 p-3">
       {combinedMessages && combinedMessages.length > 0 ? (
         combinedMessages.map((message, i) => {
           const isNextMessageSamePerson =
@@ -74,7 +74,7 @@ const Messages = ({ fileId }: MessagesProps) => {
                 key={message.id}
               />
             )
-          } else {
+          } else
             return (
               <Message
                 message={message}
@@ -82,7 +82,6 @@ const Messages = ({ fileId }: MessagesProps) => {
                 key={message.id}
               />
             )
-          }
         })
       ) : isLoading ? (
         <div className="flex w-full flex-col gap-2">
@@ -94,9 +93,9 @@ const Messages = ({ fileId }: MessagesProps) => {
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center gap-2">
           <MessageSquare className="h-8 w-8 text-blue-500" />
-          <h3 className="text-xl font-semibold"> You&apos;re all set!</h3>
+          <h3 className="text-xl font-semibold">You&apos;re all set!</h3>
           <p className="text-sm text-zinc-500">
-            Ask youre first question to get started.
+            Ask your first question to get started.
           </p>
         </div>
       )}

@@ -1,5 +1,4 @@
 /* eslint-disable prefer-const */
-'use client'
 
 import { createContext, useRef, useState } from 'react'
 import { useToast } from '../ui/use-toast'
