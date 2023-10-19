@@ -1,6 +1,7 @@
 import ChatWrapper from '@/components/chat/ChatWrapper'
 import PdfRenderer from '@/components/PdfRenderer'
 import { db } from '@/db'
+import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 import { notFound, redirect } from 'next/navigation'
 
@@ -33,6 +34,8 @@ const Page = async ({ params }: PageProps) => {
     notFound()
   }
 
+  const plan = await getUserSubscriptionPlan()
+
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-1 flex-col justify-between">
       <div className=" max-w- mx-auto w-full grow lg:flex xl:px-2">
@@ -45,7 +48,7 @@ const Page = async ({ params }: PageProps) => {
 
         <div className="flex-[0.75] shrink-0 border-t border-gray-200 lg:w-96 lg:border-l lg:border-t-0">
           <div className="flex">
-            <ChatWrapper fileId={file.id} />
+            <ChatWrapper fileId={file.id} isSubscribed={plan.isSubscribed} />
           </div>
         </div>
       </div>
