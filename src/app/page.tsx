@@ -3,8 +3,13 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { get } from 'http'
 
 export default function Home(): JSX.Element {
+  const { getUser } = getKindeServerSession()
+  const user = getUser()
+
   return (
     <>
       <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center text-center sm:mt-40">
@@ -26,7 +31,7 @@ export default function Home(): JSX.Element {
             size: 'lg',
             className: 'mt-5',
           })}
-          href="/dashboard"
+          href={user ? '/dashboard' : '/sign-up'}
           target="_blank"
         >
           Get started <ArrowRight className="ml-2 h-5 w-5" />
