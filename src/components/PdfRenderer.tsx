@@ -64,6 +64,8 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
     resolver: zodResolver(CustomPageValidator),
   })
 
+  console.log(errors)
+
   const { width, ref } = useResizeDetector()
 
   const handlePageSubmit = ({ page }: TCustomPageValidator) => {
@@ -77,12 +79,12 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
         <div className="flex items-center gap-1.5">
           <Button
             disabled={currPage <= 1}
-            variant={'ghost'}
-            aria-label="previous page"
             onClick={() => {
               setCurrPage((prev) => (prev - 1 > 1 ? prev - 1 : 1))
               setValue('page', String(currPage - 1))
             }}
+            variant="ghost"
+            aria-label="previous page"
           >
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -91,10 +93,9 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
             <Input
               {...register('page')}
               className={cn(
-                'h-8 w-12 text-end',
+                'h-8 w-12',
                 errors.page && 'focus-visible:ring-red-500'
               )}
-              value={currPage}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   handleSubmit(handlePageSubmit)()
@@ -109,14 +110,14 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
 
           <Button
             disabled={numPages === undefined || currPage === numPages}
-            variant={'ghost'}
-            aria-label="next page"
             onClick={() => {
               setCurrPage((prev) =>
                 prev + 1 > numPages! ? numPages! : prev + 1
               )
               setValue('page', String(currPage + 1))
             }}
+            variant="ghost"
+            aria-label="next page"
           >
             <ChevronUp className="h-4 w-4" />
           </Button>
@@ -125,31 +126,32 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
         <div className="space-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" aria-label="zoom" className="gap-1.5">
+              <Button className="gap-1.5" aria-label="zoom" variant="ghost">
                 <Search className="h-4 w-4" />
-                {scale * 100}%<ChevronDown className="h-3 w-3 opacity-50" />
+                {scale * 100}%
+                <ChevronDown className="h-3 w-3 opacity-50" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onSelect={() => setScale(1)}>
-                {'100%'}
+                100%
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setScale(1.5)}>
-                {'150%'}
+                150%
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setScale(2)}>
-                {'200%'}
+                200%
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setScale(2.5)}>
-                {'250%'}
+                250%
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
           <Button
-            aria-label="rotate 90 degrees"
             onClick={() => setRotation((prev) => prev + 90)}
-            variant={'ghost'}
+            variant="ghost"
+            aria-label="rotate 90 degrees"
           >
             <RotateCw className="h-4 w-4" />
           </Button>
@@ -170,7 +172,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               onLoadError={() => {
                 toast({
                   title: 'Error loading PDF',
-                  description: 'Please try again later.',
+                  description: 'Please try again later',
                   variant: 'destructive',
                 })
               }}
@@ -187,6 +189,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
                   key={'@' + renderedScale}
                 />
               ) : null}
+
               <Page
                 className={cn(isLoading ? 'hidden' : '')}
                 width={width ? width : 1}

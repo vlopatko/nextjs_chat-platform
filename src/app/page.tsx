@@ -4,7 +4,6 @@ import { ArrowRight } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
-import { get } from 'http'
 
 export default function Home(): JSX.Element {
   const { getUser } = getKindeServerSession()
