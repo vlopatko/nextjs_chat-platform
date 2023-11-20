@@ -5,12 +5,6 @@ import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 
-// import { PineconeStore } from 'langchain/vectorstores/pinecone'
-// import { pinecone } from '@/lib/pinecone'
-
-// import { Milvus } from 'langchain/vectorstores/milvus'
-// import { MilvusClient } from '@zilliz/milvus2-sdk-node'
-
 import { QdrantVectorStore } from 'langchain/vectorstores/qdrant'
 import { getQdrantClient } from '@/lib/qdrant'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
@@ -98,9 +92,9 @@ const onUploadComplete = async ({
     }
 
     const embeddings = new OpenAIEmbeddings({
-      openAIApiKey: process.env.OPENAI_API_KEY2,
+      openAIApiKey: process.env.OPENAI_API_KEY,
     })
-
+    console.log('EMBEDDINGS', embeddings)
     const qdrantClient = getQdrantClient()
 
     await QdrantVectorStore.fromDocuments(pageLevelDocs, embeddings, {
