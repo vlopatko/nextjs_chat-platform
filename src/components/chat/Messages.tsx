@@ -27,7 +27,7 @@ const Messages = ({ fileId }: MessagesProps) => {
     )
 
   const messages = data?.pages.flatMap((page) => page.messages)
-
+  console.log(messages)
   const loadingMessage = {
     createdAt: new Date().toISOString(),
     id: 'loading-message',
